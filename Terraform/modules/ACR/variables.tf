@@ -1,4 +1,4 @@
-variable "aks_name" {
+variable "acr_name" {
   type = string
 }
 
@@ -7,13 +7,5 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  type = string
-}
-
-variable "acr_id" {
-  type = string
-}
-
-variable "subnet_id" {
   type = string
 }
