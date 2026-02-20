@@ -12,8 +12,15 @@ spec:
       labels:
         app: devsecops-app
     spec:
+      serviceAccountName: app-sa
       containers:
       - name: app
         image: prashunacr001.azurecr.io/devsecops-app:v1
         ports:
         - containerPort: 5000
+
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: app-secret
