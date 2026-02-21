@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: prashunacr001.azurecr.io/myapp
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
