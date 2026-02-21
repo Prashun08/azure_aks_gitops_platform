@@ -37,3 +37,4 @@ override.tf.json
 terraform.rc
 
 set_env.ps1
+commands.txt
