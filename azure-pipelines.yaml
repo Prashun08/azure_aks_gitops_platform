@@ -1,0 +1,47 @@
+trigger:
+- none
+
+variables:
+  imageName: myapp
+  acrName: prashunacr001
+  aksCluster: aks-dev
+  resourceGroup: rg-aks-dev
+
+stages:
+
+- stage: Build
+  jobs:
+  - job: BuildPush
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: acr-service-connection
+        repository: $(imageName)
+        command: buildAndPush
+        Dockerfile: app/Dockerfile
+        tags: |
+          latest
+
+- stage: Deploy
+  jobs:
+  - job: DeployToAKS
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+
+    - task: Kubernetes@1
+      inputs:
+        connectionType: Azure Resource Manager
+        azureSubscriptionEndpoint: aks-service-connection
+        azureResourceGroup: $(resourceGroup)
+        kubernetesCluster: $(aksCluster)
+        command: login
+
+    - script: |
+        helm upgrade --install myapp helm/myapp \
+          --namespace dev \
+          --create-namespace
+      displayName: Deploy with Helm
