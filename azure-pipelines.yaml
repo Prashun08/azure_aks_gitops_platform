@@ -13,7 +13,7 @@ stages:
   jobs:
   - job: BuildPush
     pool:
-      vmImage: ubuntu-latest
+      name: Default
     steps:
 
     - task: Docker@2
@@ -29,7 +29,7 @@ stages:
   jobs:
   - job: DeployToAKS
     pool:
-      vmImage: ubuntu-latest
+      name: Default
     steps:
 
     - task: Kubernetes@1
