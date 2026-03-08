@@ -4,7 +4,7 @@ trigger:
 variables:
   imageName: myapp
   acrName: prashunacr001
-  aksCluster: aks-dev
+  aksCluster: dev-aks
   resourceGroup: rg-aks-dev
 
 stages:
