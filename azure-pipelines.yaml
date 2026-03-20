@@ -45,3 +45,14 @@ stages:
           --namespace dev \
           --create-namespace
       displayName: Deploy with Helm
+
+    - script: |
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo update
+      displayName: Add Helm Repo
+
+    - script: |
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+        --namespace ingress-nginx \
+        --create-namespace
+      displayName: Install NGINX Ingress
