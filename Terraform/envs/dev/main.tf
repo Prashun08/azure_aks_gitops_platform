@@ -27,3 +27,15 @@ module "aks" {
   aks_name            = var.aks_name
 }
 
+resource "azurerm_dns_zone" "main" {
+  name                = "gitops-test.space"
+  resource_group_name = azurerm_resource_group.this.name
+}
+
+resource "azurerm_dns_a_record" "myapp" {
+  name                = "myapp"
+  zone_name           = azurerm_dns_zone.main.name
+  resource_group_name = azurerm_resource_group.this.name
+  ttl                 = 300
+  records             = ["135.235.191.139"] # your ingress IP
+}
